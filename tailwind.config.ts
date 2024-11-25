@@ -11,8 +11,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        card: "var(--card)",
       },
     },
   },
+  darkMode: "selector",
   plugins: [],
 } satisfies Config;
