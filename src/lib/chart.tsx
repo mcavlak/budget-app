@@ -1,7 +1,21 @@
 import React from "react";
 import { Sector } from "recharts";
 
-export const renderActiveShape = (props: any) => {
+interface ActiveShapeProps {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  startAngle: number;
+  endAngle: number;
+  fill: string;
+  payload: {name: string};
+  percent: number;
+  value: number;
+}
+
+export const renderActiveShape = (props: ActiveShapeProps) => {
   const RADIAN = Math.PI / 180;
   const {
     cx,
@@ -61,7 +75,7 @@ export const renderActiveShape = (props: any) => {
         textAnchor={textAnchor}
         fill="#888"
       >
-        {value.toLocaleString("tr-TR")} ₺
+        {value.toLocaleString("tr-TR")}₺
       </text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}

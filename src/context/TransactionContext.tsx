@@ -80,7 +80,7 @@ export function TransactionProvider({
       {}
     );
 
-    return Object.values(grouped);
+    return Object.values(grouped).sort((a, b) => a.date.localeCompare(b.date));
   };
 
   const getPieChartData: TransactionContextType["getPieChartData"] = (date) => {

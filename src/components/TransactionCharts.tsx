@@ -18,6 +18,8 @@ import {
 } from "recharts";
 import { tr } from "date-fns/locale";
 import dayjs from "dayjs";
+import { ActiveShape } from "recharts/types/util/types";
+import { PieSectorDataItem } from "recharts/types/polar/Pie";
 
 export function TransactionCharts() {
   const { getLineChartData, getPieChartData } = useTransactions() || {};
@@ -44,7 +46,7 @@ export function TransactionCharts() {
                   className="text-sm"
                   tick={{ fill: "#6B7280" }}
                 />
-                <YAxis className="text-sm" tick={{ fill: "#6B7280" }} />
+                <YAxis className="text-sm" tick={{ fill: "#6B7280" }} tickFormatter={(value) => `${value.toLocaleString("tr-TR")}₺`}/>
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#FFF",
@@ -108,7 +110,7 @@ export function TransactionCharts() {
                 <Pie
                   data={pieChartData}
                   activeIndex={activeIndex}
-                  activeShape={renderActiveShape}
+                  activeShape={renderActiveShape as ActiveShape<PieSectorDataItem>}
                   cx="50%"
                   cy="50%"
                   innerRadius={60}
