@@ -90,15 +90,19 @@ export function TransactionProvider({
 
     const grouped = filteredTransactions.reduce(
       (acc: Record<string, PiChartDataItem>, transaction) => {
-        const category = transaction.category;
-        if (category) {
-          if (!acc[category]) {
-            acc[category] = { name: category, value: 0 };
+        if (transaction.type === "expense") {
+          const category = transaction.category;
+          if (category) {
+            if (!acc[category]) {
+              acc[category] = { name: category, value: 0 };
+            }
+            acc[category].value += Number(transaction.amount);
+          } else {
+            if(!acc["other"]) {
+              acc["other"] = { name: "Diğer", value: 0 };
+            }
+            acc["other"].value += Number(transaction.amount);
           }
-          acc[category].value += Number(transaction.amount);
-        } else {
-          acc["other"] = { name: "Diğer", value: 0 };
-          acc["other"].value += Number(transaction.amount);
         }
         return acc;
       },

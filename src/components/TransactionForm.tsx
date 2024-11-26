@@ -43,17 +43,27 @@ export function TransactionForm() {
         );
         if (category) {
           const totalExpense = getTotalExpense ? getTotalExpense() : 0;
-          if (totalExpense + Number(form.amount) >= Number(category.limit) * 0.8) {
+          const newTotal = totalExpense + Number(form.amount);
+
+          if (newTotal >= Number(category.limit)) {
             if (
               !confirm(
-                `${category.limit}₺ olan kategori limitinizi aşıyorsunuz. İşlemi kaydetmek istiyor musunuz?`
+                `${category.limit}₺ olan kategori limitinizi aştınız. İşlemi kaydetmek istiyor musunuz?`
               )
             ) {
-              return
+              return;
+            }
+          } else if (newTotal >= Number(category.limit) * 0.8) {
+            if (
+              !confirm(
+                `${category.limit}₺ olan kategori limitine yaklaşıyorsunuz. İşlemi kaydetmek istiyor musunuz?`
+              )
+            ) {
+              return;
             }
           }
         }
-      } 
+      }
       addTransaction(form);
     }
 
